@@ -1,8 +1,18 @@
-d3.csv('https://gist.githubusercontent.com/ErronLLP/83bba8c9b71103986b233b185f29cce9/raw/a67b49c4ffa236399d1db8d1567d706091c2497c/mds.csv', function(err, rows){
-
+d3.csv('https://gist.githubusercontent.com/ErronLLP/def795683e9c5e0143785becc8d56808/raw/27c8184fac84626e91b7817e34e2a930cbf3774a/mds.csv', function(err, rows) {
     function unpack(rows, key) {
         return rows.map(function(row) { return row[key]; });
     }
+
+    var valence = unpack(rows, 'valence').map(Number); // Ensure valence is numeric
+    var arousal = unpack(rows, 'arousal').map(Number); // Ensure arousal is numeric
+    var videoName = unpack(rows, 'videoName'); // Extract video names
+
+    var hovertextValence = videoName.map((name, i) => `Video: ${name}<br>Valence: ${valence[i]}`);
+    var hovertextArousal = videoName.map((name, i) => `Video: ${name}<br>Arousal: ${arousal[i]}`);
+
+    // Determine the min and max values for both variables to set a consistent color scale range
+    var minValue = 0;
+    var maxValue = 10;
 
     var data = [{
         x: unpack(rows, 'MDS1'),
@@ -11,9 +21,28 @@ d3.csv('https://gist.githubusercontent.com/ErronLLP/83bba8c9b71103986b233b185f29
         mode: 'markers',
         type: 'scatter3d',
         marker: {
-          color: 'rgb(23, 190, 207)',
-          size: 2
-        }
+            color: valence,
+            colorscale: [
+                [0, '#0571b0'],
+                [0.25, '#92c5de'],
+                [0.5, '#f7f7f7'],
+                [0.75, '#f4a582'],
+                [1, '#ca0020']
+            ],
+            cmin: minValue, // Set minimum value
+            cmax: maxValue, // Set maximum value
+            size: 5,
+            symbol: 'circle',
+            colorbar: {
+                title: 'Valence',
+                titleside: 'right',
+                x: 1,
+                xpad: 20
+            }
+        },
+        customdata: videoName, // Ensure 'videoName' matches the CSV column name for videos
+        hovertext: hovertextValence,
+        hoverinfo: 'text'
     }];
 
     var layout = {
@@ -55,32 +84,56 @@ d3.csv('https://gist.githubusercontent.com/ErronLLP/83bba8c9b71103986b233b185f29
                 zeroline: false
             }
         },
-        title: '3d point clustering',
-        width: 1000
+        hovermode: 'closest', // Ensure hovermode is set to 'closest'
+        title: '3D Point Clustering',
+        width: 1000,
+        updatemenus: [{
+            buttons: [
+                {
+                    args: [{
+                        'marker.color': [valence],
+                        'marker.colorscale': [
+                            [0, '#0571b0'],
+                            [0.25, '#92c5de'],
+                            [0.5, '#f7f7f7'],
+                            [0.75, '#f4a582'],
+                            [1, '#ca0020']
+                        ],
+                        'marker.cmin': minValue,
+                        'marker.cmax': maxValue,
+                        'marker.colorbar.title': 'Valence',
+                        'hovertext': [hovertextValence]
+                    }],
+                    label: 'Valence',
+                    method: 'restyle'
+                },
+                {
+                    args: [{
+                        'marker.color': [arousal],
+                        'marker.colorscale': [
+                            [0, '#0571b0'],
+                            [0.25, '#92c5de'],
+                            [0.5, '#f7f7f7'],
+                            [0.75, '#f4a582'],
+                            [1, '#ca0020']
+                        ],
+                        'marker.cmin': minValue,
+                        'marker.cmax': maxValue,
+                        'marker.colorbar.title': 'Arousal',
+                        'hovertext': [hovertextArousal]
+                    }],
+                    label: 'Arousal',
+                    method: 'restyle'
+                }
+            ],
+            direction: 'down',
+            showactive: true,
+            x: 0.17,
+            xanchor: 'left',
+            y: 1.1,
+            yanchor: 'top'
+        }]
     };
 
     Plotly.newPlot('myDiv', data, layout);
-
-    var myPlot = document.getElementById('myDiv');
-    var hoverVideo = document.getElementById('hoverVideo');
-    var videoSource = document.getElementById('videoSource');
-
-    myPlot.on('plotly_hover', function(data){
-        var point = data.points[0];
-        var videoName = point.customdata;
-        var videoURL = 'https://example.com/' + videoName; // Update the base URL as needed
-
-        videoSource.src = videoURL;
-        hoverVideo.load();
-        hoverVideo.style.display = 'block';
-        hoverVideo.style.left = (data.event.clientX + 10) + 'px';
-        hoverVideo.style.top = (data.event.clientY + 10) + 'px';
-        hoverVideo.play();
-    });
-
-    myPlot.on('plotly_unhover', function(data){
-        hoverVideo.pause();
-        hoverVideo.style.display = 'none';
-    });
-
 });
