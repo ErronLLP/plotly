@@ -1,0 +1,8 @@
+body *{
+    font-family: 'Open Sans', sans-serif;
+  }
+/* 加个星号应用于全部文本 */
+
+body{
+  background-color: rgb(221, 254, 255);
+}
