@@ -1,0 +1,24 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(vegan)
+wd <- getwd()
+paste0(wd, "/A1_matrix.csv")
+
+A1 <- as.matrix(fread(paste0(wd, "/A1_matrix.csv")))
+T1 <- as.matrix(fread(paste0(wd, "/T1_matrix.csv")))
+
+mds_A1 <- metaMDS(A1, distance = "euclidean", k = 3, try = 20)
+mds_T1 <- metaMDS(T1, distance = "euclidean", k = 3, try = 20)
+
+# out put 3 dimension position.
+mds_A1_dt <- as.data.table(mds_A1$points)
+write.csv(mds_A1_dt, "mds_A1.csv")
+
+mds_T1_dt <- as.data.table(mds_T1$points)
+write.csv(mds_T1_dt, "mds_T1.csv")
+```

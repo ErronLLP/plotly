@@ -1,8 +1,11 @@
-body *{
-    font-family: 'Open Sans', sans-serif;
-  }
-/* 加个星号应用于全部文本 */
+.page {
+  width: 1000px;
+  background-color: white;
+  margin: auto;
+  padding: 50px;
+  padding-top: 35px;
+}
 
 body{
-  background-color: rgb(221, 254, 255);
+  background-color: #006DAE;
 }

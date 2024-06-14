@@ -3,24 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>3D Scatter Plot with Video on Hover</title>
-    <!-- Link to the external CSS file -->
+    
+    <!-- .css file -->
     <link rel="stylesheet" href="style.css">
     
     <!-- Plotly.js -->
     <script src="plotly-2.32.0.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
-</head>
-<body>
-    <div class="container">
-        <h1>Emotion qualia structure of 75 videos in 3D space</h1>
-        <h2>This qualia structure estimated from mean similarity matrix of all participants (N = 599). Color is encoded by the values of “valence” or “arousal”, from Cowen & Keltner (2017)</h2>
-        <h3>From this figure, we can see videos with similar valence are clustered together, but in the case of arousal, this pattern is not so salience. The next step is to compare the qualia structure between alexithymia and typical particpants.</h3>
-        <p>You can interact with this plot by mouse drag to rotate the structure; 
-            hover the cursor over points to see more information; 
-            select valence/arousal from middle-top's drag-down list to encode colors. </p>
-        <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
 
-    </div>
-    <script src="plot.js"></script>
+    <!-- Import pure.css -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- pure grid group 1 -->
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+              <h1>Par1: Emotion qualia structure of 75 videos in 3D space</h1>
+                <h2>This qualia structure estimated from mean similarity matrix of all participants (N = 599). Color is encoded by the values of “valence” or “arousal”, from Cowen & Keltner (2017)</h2>
+                <h3>From this figure, we can see videos with similar valence are clustered together, but in the case of arousal, this pattern is not so salience. The next step is to compare the qualia structure between alexithymia and typical particpants.</h3>
+                <p>You can interact with this plot by mouse drag to rotate the structure; 
+                hover the cursor over points to see more information; 
+                select valence/arousal from middle-top's drag-down list to encode colors. </p>
+            </div>
+          </div>
+
+        <div class="container">
+            <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+        </div>
+        <script src="plot_all.js"></script>
+        
+        
+        <!-- end pure grid group -->
+
+        
+        <!-- pure grid group 2 -->
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+              <h1>Par2: Emotion qualia of typical and alexithymia particpants</h1>
+            </div>
+
+            <div class="pure-u-1-2">
+                <div class="container">
+                    <div id="myDiv2"><!-- Plotly chart will be drawn inside this DIV --></div>
+                </div>
+                <script src="plot_T_A_600_comparison.js"></script>
+              </div>
+
+
+              <div class="pure-u-1-2">
+                <h2>TBC: comparsion between T and A</h2>
+                  <p> Explaination text </p>
+              </div>
+
+          </div>
+          <!-- end pure grid group -->
+
+
 </body>
 </html>

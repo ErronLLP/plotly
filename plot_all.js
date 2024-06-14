@@ -47,7 +47,8 @@ d3.csv('https://gist.githubusercontent.com/ErronLLP/def795683e9c5e0143785becc8d5
 
     var layout = {
         autosize: true,
-        height: 1000,
+        height: 800, // Reduced height
+        width: 800, // Reduced width
         scene: {
             aspectratio: {
                 x: 1,
@@ -86,7 +87,6 @@ d3.csv('https://gist.githubusercontent.com/ErronLLP/def795683e9c5e0143785becc8d5
         },
         hovermode: 'closest', // Ensure hovermode is set to 'closest'
         title: '3D Point Clustering',
-        width: 1000,
         updatemenus: [{
             buttons: [
                 {
