@@ -1763,85 +1763,22 @@ pre code {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh2ZWdhbilcbndkIDwtIGdldHdkKClcbnBhc3RlMCh3ZCwgXCIvQTFfbWF0cml4LmNzdlwiKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh2ZWdhbilcbndkIDwtIGdldHdkKClcbmBgYCJ9 -->
 <pre class="r"><code>library(vegan)
-wd &lt;- getwd()
-paste0(wd, &quot;/A1_matrix.csv&quot;)</code></pre>
+wd &lt;- getwd()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiL1VzZXJzL2Vycm9uX2xpcGVuZ2xpbi9EZXNrdG9wL1ByZS1QaEQgUGVyaW9kL0Vtb3Rpb24gcHJvamVjdC9MaXBlbmdfQkZfYm9vdF9wcm9ncmFtL3Bsb3RseS9kYXRhL0ExX21hdHJpeC5jc3ZcIlxuIn0= -->
-<pre><code>[1] &quot;/Users/erron_lipenglin/Desktop/Pre-PhD Period/Emotion project/Lipeng_BF_boot_program/plotly/data/A1_matrix.csv&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQTEgPC0gYXMubWF0cml4KGZyZWFkKHBhc3RlMCh3ZCwgXCIvQTFfbWF0cml4LmNzdlwiKSkpXG5UMSA8LSBhcy5tYXRyaXgoZnJlYWQocGFzdGUwKHdkLCBcIi9UMV9tYXRyaXguY3N2XCIpKSlcblxubWRzX0ExIDwtIG1ldGFNRFMoQTEsIGRpc3RhbmNlID0gXCJldWNsaWRlYW5cIiwgayA9IDMsIHRyeSA9IDIwKVxuYGBgIn0= -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQTEgPC0gYXMubWF0cml4KGZyZWFkKHBhc3RlMCh3ZCwgXCIvQTFfbWF0cml4LmNzdlwiKSkpXG5UMSA8LSBhcy5tYXRyaXgoZnJlYWQocGFzdGUwKHdkLCBcIi9UMV9tYXRyaXguY3N2XCIpKSlcblxubWRzX0ExIDwtIG1ldGFNRFMoQTEsIGRpc3RhbmNlID0gXCJldWNsaWRlYW5cIiwgayA9IDMsIHRyeSA9IDIwKVxubWRzX1QxIDwtIG1ldGFNRFMoVDEsIGRpc3RhbmNlID0gXCJldWNsaWRlYW5cIiwgayA9IDMsIHRyeSA9IDIwKVxuXG4jIG91dCBwdXQgMyBkaW1lbnNpb24gcG9zaXRpb24uXG5tZHNfQTFfZHQgPC0gYXMuZGF0YS50YWJsZShtZHNfQTEkcG9pbnRzKVxud3JpdGUuY3N2KG1kc19BMV9kdCwgXCJtZHNfQTEuY3N2XCIpXG5cbm1kc19UMV9kdCA8LSBhcy5kYXRhLnRhYmxlKG1kc19UMSRwb2ludHMpXG53cml0ZS5jc3YobWRzX1QxX2R0LCBcIm1kc19UMS5jc3ZcIilcbmBgYCJ9 -->
 <pre class="r"><code>A1 &lt;- as.matrix(fread(paste0(wd, &quot;/A1_matrix.csv&quot;)))
 T1 &lt;- as.matrix(fread(paste0(wd, &quot;/T1_matrix.csv&quot;)))
 
-mds_A1 &lt;- metaMDS(A1, distance = &quot;euclidean&quot;, k = 3, try = 20)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUnVuIDAgc3RyZXNzIDAuMjU0ODc1OSBcblJ1biAxIHN0cmVzcyAwLjI1NTQ1NjkgXG5SdW4gMiBzdHJlc3MgMC4yNTg4MzcgXG5SdW4gMyBzdHJlc3MgMC4yNTczNzM3IFxuUnVuIDQgc3RyZXNzIDAuMjU4NzIzNyBcblJ1biA1IHN0cmVzcyAwLjI1ODc4MTMgXG5SdW4gNiBzdHJlc3MgMC4yNTc4NTYxIFxuUnVuIDcgc3RyZXNzIDAuMjU3MDM3NiBcblJ1biA4IHN0cmVzcyAwLjI2NDYxNDEgXG5SdW4gOSBzdHJlc3MgMC4yNTkyMDY1IFxuUnVuIDEwIHN0cmVzcyAwLjI1ODI4MTMgXG5SdW4gMTEgc3RyZXNzIDAuMjU1ODcxMSBcblJ1biAxMiBzdHJlc3MgMC4yNTc2NjE1IFxuUnVuIDEzIHN0cmVzcyAwLjI1NjQ1NiBcblJ1biAxNCBzdHJlc3MgMC4yNTU5MzQzIFxuUnVuIDE1IHN0cmVzcyAwLjI1NzA2NjEgXG5SdW4gMTYgc3RyZXNzIDAuMjU1NTI1MiBcblJ1biAxNyBzdHJlc3MgMC4yNTgyODE3IFxuUnVuIDE4IHN0cmVzcyAwLjI1NTA0ODcgXG4uLi4gUHJvY3J1c3Rlczogcm1zZSAwLjA1MDk4MzE0ICBtYXggcmVzaWQgMC4xNjIwMzU1IFxuUnVuIDE5IHN0cmVzcyAwLjI1ODc0OTcgXG5SdW4gMjAgc3RyZXNzIDAuMjU3NDQ4MSBcbioqKiBCZXN0IHNvbHV0aW9uIHdhcyBub3QgcmVwZWF0ZWQgLS0gbW9ub01EUyBzdG9wcGluZyBjcml0ZXJpYTpcbiAgICAxNjogbm8uIG9mIGl0ZXJhdGlvbnMgPj0gbWF4aXRcbiAgICAgNDogc3RyZXNzIHJhdGlvID4gc3JhdG1heFxuIn0= -->
-<pre><code>Run 0 stress 0.2548759 
-Run 1 stress 0.2554569 
-Run 2 stress 0.258837 
-Run 3 stress 0.2573737 
-Run 4 stress 0.2587237 
-Run 5 stress 0.2587813 
-Run 6 stress 0.2578561 
-Run 7 stress 0.2570376 
-Run 8 stress 0.2646141 
-Run 9 stress 0.2592065 
-Run 10 stress 0.2582813 
-Run 11 stress 0.2558711 
-Run 12 stress 0.2576615 
-Run 13 stress 0.256456 
-Run 14 stress 0.2559343 
-Run 15 stress 0.2570661 
-Run 16 stress 0.2555252 
-Run 17 stress 0.2582817 
-Run 18 stress 0.2550487 
-... Procrustes: rmse 0.05098314  max resid 0.1620355 
-Run 19 stress 0.2587497 
-Run 20 stress 0.2574481 
-*** Best solution was not repeated -- monoMDS stopping criteria:
-    16: no. of iterations &gt;= maxit
-     4: stress ratio &gt; sratmax</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWRzX1QxIDwtIG1ldGFNRFMoVDEsIGRpc3RhbmNlID0gXCJldWNsaWRlYW5cIiwgayA9IDMsIHRyeSA9IDIwKVxuYGBgIn0= -->
-<pre class="r"><code>mds_T1 &lt;- metaMDS(T1, distance = &quot;euclidean&quot;, k = 3, try = 20)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUnVuIDAgc3RyZXNzIDAuMjQ2OTg2OCBcblJ1biAxIHN0cmVzcyAwLjI0NzkxMzEgXG5SdW4gMiBzdHJlc3MgMC4yNDYzNzg4IFxuLi4uIE5ldyBiZXN0IHNvbHV0aW9uXG4uLi4gUHJvY3J1c3Rlczogcm1zZSAwLjA1NTQyNzYzICBtYXggcmVzaWQgMC4xODA5OTg2IFxuUnVuIDMgc3RyZXNzIDAuMjQ2NjM3OSBcbi4uLiBQcm9jcnVzdGVzOiBybXNlIDAuMDYyOTA1MzQgIG1heCByZXNpZCAwLjE4NDM2MjcgXG5SdW4gNCBzdHJlc3MgMC4yNDY2NjgzIFxuLi4uIFByb2NydXN0ZXM6IHJtc2UgMC4wNTkwOTY5NCAgbWF4IHJlc2lkIDAuMTY1OTMxNyBcblJ1biA1IHN0cmVzcyAwLjI1MTUwMiBcblJ1biA2IHN0cmVzcyAwLjI0ODk1NjMgXG5SdW4gNyBzdHJlc3MgMC4yNDU1NTE1IFxuLi4uIE5ldyBiZXN0IHNvbHV0aW9uXG4uLi4gUHJvY3J1c3Rlczogcm1zZSAwLjA3MjkyNzQgIG1heCByZXNpZCAwLjE5MTk3MzUgXG5SdW4gOCBzdHJlc3MgMC4yNDc4MTc0IFxuUnVuIDkgc3RyZXNzIDAuMjQ2Nzg0OSBcblJ1biAxMCBzdHJlc3MgMC4yNDY2NjU3IFxuUnVuIDExIHN0cmVzcyAwLjI0ODE2NDkgXG5SdW4gMTIgc3RyZXNzIDAuMjQ4MDA0OCBcblJ1biAxMyBzdHJlc3MgMC4yNTMxNTg0IFxuUnVuIDE0IHN0cmVzcyAwLjI0NzM3NzQgXG5SdW4gMTUgc3RyZXNzIDAuMjQ1ODYgXG4uLi4gUHJvY3J1c3Rlczogcm1zZSAwLjA1OTkwMTk2ICBtYXggcmVzaWQgMC4xNzE3NjE3IFxuUnVuIDE2IHN0cmVzcyAwLjI0ODQ2MDkgXG5SdW4gMTcgc3RyZXNzIDAuMjQ2ODMzNCBcblJ1biAxOCBzdHJlc3MgMC4yNDg2MTk1IFxuUnVuIDE5IHN0cmVzcyAwLjI0NzU4NDcgXG5SdW4gMjAgc3RyZXNzIDAuMjQ2MjQ2MiBcbioqKiBCZXN0IHNvbHV0aW9uIHdhcyBub3QgcmVwZWF0ZWQgLS0gbW9ub01EUyBzdG9wcGluZyBjcml0ZXJpYTpcbiAgICAxNTogbm8uIG9mIGl0ZXJhdGlvbnMgPj0gbWF4aXRcbiAgICAgNTogc3RyZXNzIHJhdGlvID4gc3JhdG1heFxuIn0= -->
-<pre><code>Run 0 stress 0.2469868 
-Run 1 stress 0.2479131 
-Run 2 stress 0.2463788 
-... New best solution
-... Procrustes: rmse 0.05542763  max resid 0.1809986 
-Run 3 stress 0.2466379 
-... Procrustes: rmse 0.06290534  max resid 0.1843627 
-Run 4 stress 0.2466683 
-... Procrustes: rmse 0.05909694  max resid 0.1659317 
-Run 5 stress 0.251502 
-Run 6 stress 0.2489563 
-Run 7 stress 0.2455515 
-... New best solution
-... Procrustes: rmse 0.0729274  max resid 0.1919735 
-Run 8 stress 0.2478174 
-Run 9 stress 0.2467849 
-Run 10 stress 0.2466657 
-Run 11 stress 0.2481649 
-Run 12 stress 0.2480048 
-Run 13 stress 0.2531584 
-Run 14 stress 0.2473774 
-Run 15 stress 0.24586 
-... Procrustes: rmse 0.05990196  max resid 0.1717617 
-Run 16 stress 0.2484609 
-Run 17 stress 0.2468334 
-Run 18 stress 0.2486195 
-Run 19 stress 0.2475847 
-Run 20 stress 0.2462462 
-*** Best solution was not repeated -- monoMDS stopping criteria:
-    15: no. of iterations &gt;= maxit
-     5: stress ratio &gt; sratmax</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBvdXQgcHV0IDMgZGltZW5zaW9uIHBvc2l0aW9uLlxubWRzX0ExX2R0IDwtIGFzLmRhdGEudGFibGUobWRzX0ExJHBvaW50cylcbndyaXRlLmNzdihtZHNfQTFfZHQsIFwibWRzX0ExLmNzdlwiKVxuXG5tZHNfVDFfZHQgPC0gYXMuZGF0YS50YWJsZShtZHNfVDEkcG9pbnRzKVxud3JpdGUuY3N2KG1kc19UMV9kdCwgXCJtZHNfVDEuY3N2XCIpXG5gYGAifQ== -->
-<pre class="r"><code># out put 3 dimension position.
+mds_A1 &lt;- metaMDS(A1, distance = &quot;euclidean&quot;, k = 3, try = 20)
+mds_T1 &lt;- metaMDS(T1, distance = &quot;euclidean&quot;, k = 3, try = 20)
+
+# out put 3 dimension position.
 mds_A1_dt &lt;- as.data.table(mds_A1$points)
 write.csv(mds_A1_dt, &quot;mds_A1.csv&quot;)
 
@@ -1850,7 +1787,7 @@ write.csv(mds_T1_dt, &quot;mds_T1.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQpsaWJyYXJ5KHZlZ2FuKQp3ZCA8LSBnZXR3ZCgpCnBhc3RlMCh3ZCwgIi9BMV9tYXRyaXguY3N2IikKCkExIDwtIGFzLm1hdHJpeChmcmVhZChwYXN0ZTAod2QsICIvQTFfbWF0cml4LmNzdiIpKSkKVDEgPC0gYXMubWF0cml4KGZyZWFkKHBhc3RlMCh3ZCwgIi9UMV9tYXRyaXguY3N2IikpKQoKbWRzX0ExIDwtIG1ldGFNRFMoQTEsIGRpc3RhbmNlID0gImV1Y2xpZGVhbiIsIGsgPSAzLCB0cnkgPSAyMCkKbWRzX1QxIDwtIG1ldGFNRFMoVDEsIGRpc3RhbmNlID0gImV1Y2xpZGVhbiIsIGsgPSAzLCB0cnkgPSAyMCkKCiMgb3V0IHB1dCAzIGRpbWVuc2lvbiBwb3NpdGlvbi4KbWRzX0ExX2R0IDwtIGFzLmRhdGEudGFibGUobWRzX0ExJHBvaW50cykKd3JpdGUuY3N2KG1kc19BMV9kdCwgIm1kc19BMS5jc3YiKQoKbWRzX1QxX2R0IDwtIGFzLmRhdGEudGFibGUobWRzX1QxJHBvaW50cykKd3JpdGUuY3N2KG1kc19UMV9kdCwgIm1kc19UMS5jc3YiKQpgYGAK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQpsaWJyYXJ5KHZlZ2FuKQp3ZCA8LSBnZXR3ZCgpCmBgYAoKYGBge3J9CkExIDwtIGFzLm1hdHJpeChmcmVhZChwYXN0ZTAod2QsICIvQTFfbWF0cml4LmNzdiIpKSkKVDEgPC0gYXMubWF0cml4KGZyZWFkKHBhc3RlMCh3ZCwgIi9UMV9tYXRyaXguY3N2IikpKQoKbWRzX0ExIDwtIG1ldGFNRFMoQTEsIGRpc3RhbmNlID0gImV1Y2xpZGVhbiIsIGsgPSAzLCB0cnkgPSAyMCkKbWRzX1QxIDwtIG1ldGFNRFMoVDEsIGRpc3RhbmNlID0gImV1Y2xpZGVhbiIsIGsgPSAzLCB0cnkgPSAyMCkKCiMgb3V0IHB1dCAzIGRpbWVuc2lvbiBwb3NpdGlvbi4KbWRzX0ExX2R0IDwtIGFzLmRhdGEudGFibGUobWRzX0ExJHBvaW50cykKd3JpdGUuY3N2KG1kc19BMV9kdCwgIm1kc19BMS5jc3YiKQoKbWRzX1QxX2R0IDwtIGFzLmRhdGEudGFibGUobWRzX1QxJHBvaW50cykKd3JpdGUuY3N2KG1kc19UMV9kdCwgIm1kc19UMS5jc3YiKQpgYGA=</div>
 
 
 

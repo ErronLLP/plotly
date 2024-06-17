@@ -23,17 +23,36 @@ const matrixLabels = [
 
 // Fetch data and create heatmap
 Promise.all(urls.map(fetchData)).then(dataMatrices => {
-    const frames = dataMatrices.map((data, index) => ({
-        name: matrixLabels[index],
-        data: [{
-            z: data,
-            type: 'heatmap',
-            colorscale: 'Viridis',
-            hovertemplate: 'x: %{x}<br>y: %{y}<br>value: %{z}<extra></extra>',
-            x: Array.from({ length: 75 }, (_, i) => i + 1),
-            y: Array.from({ length: 75 }, (_, i) => i + 1)
-        }]
-    }));
+    const frames = dataMatrices.map((data, index) => {
+        let hovertemplate = '';
+
+        switch(index) {
+            case 0:
+                hovertemplate = 'video 1 = %{x}<br>video 2 = %{y}<br># of participant = %{z}<extra></extra>';
+                break;
+            case 1:
+                hovertemplate = 'video 1 = %{x}<br>video 2 = %{y}<br># of participant = %{z}<extra></extra>';
+                break;
+            case 2:
+                hovertemplate = 'video 1 = %{x}<br>video 2 = %{y}<br>corr = %{z}<extra></extra>';
+                break;
+            case 3:
+                hovertemplate = 'video 1 = %{x}<br>video 2 = %{y}<br>p < 0.05 (1 = yes) = %{z}<extra></extra>';
+                break;
+        }
+
+        return {
+            name: matrixLabels[index],
+            data: [{
+                z: data,
+                type: 'heatmap',
+                colorscale: 'Viridis',
+                hovertemplate: hovertemplate,
+                x: Array.from({ length: 75 }, (_, i) => i + 1),
+                y: Array.from({ length: 75 }, (_, i) => i + 1)
+            }]
+        };
+    });
 
     const layout = {
         updatemenus: [{

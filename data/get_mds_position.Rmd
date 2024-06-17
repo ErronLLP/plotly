@@ -7,8 +7,9 @@ output: html_notebook
 ```{r}
 library(vegan)
 wd <- getwd()
-paste0(wd, "/A1_matrix.csv")
+```
 
+```{r}
 A1 <- as.matrix(fread(paste0(wd, "/A1_matrix.csv")))
 T1 <- as.matrix(fread(paste0(wd, "/T1_matrix.csv")))
 
