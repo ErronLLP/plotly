@@ -2,21 +2,37 @@
 async function fetchData(url) {
     const response = await fetch(url);
     const text = await response.text();
-    return text.split('\n').map(row => row.split(',').map(Number));
+    return text.trim().split('\n').map(row => row.trim().split(',').map(Number));
 }
 
 // URLs of the CSV files
 const urls = [
-    'https://gist.githubusercontent.com/ErronLLP/def795683e9c5e0143785becc8d56808/raw/27c8184fac84626e91b7817e34e2a930cbf3774a/matrix1.csv',
-    'https://gist.githubusercontent.com/ErronLLP/def795683e9c5e0143785becc8d56808/raw/27c8184fac84626e91b7817e34e2a930cbf3774a/matrix2.csv',
-    'https://gist.githubusercontent.com/ErronLLP/def795683e9c5e0143785becc8d56808/raw/27c8184fac84626e91b7817e34e2a930cbf3774a/matrix3.csv'
+    'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/sample_size_of_each_entry_matrix.csv',
+    'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/sample_size_of_each_entry_matrix.csv',
+    'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/corr_bvaq_vs_similarity_matrix.csv',
+    'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/corr_sig_bvaq_vs_similarity_matrix.csv'
+];
+
+// Matrix labels
+const matrixLabels = [
+    'Default',
+    '# of Entries',
+    'Correlation',
+    'Significance'
 ];
 
 // Fetch data and create heatmap
 Promise.all(urls.map(fetchData)).then(dataMatrices => {
     const frames = dataMatrices.map((data, index) => ({
-        name: `Matrix ${index + 1}`,
-        data: [ { z: data, type: 'heatmap', colorscale: 'Viridis' } ]
+        name: matrixLabels[index],
+        data: [{
+            z: data,
+            type: 'heatmap',
+            colorscale: 'Viridis',
+            hovertemplate: 'x: %{x}<br>y: %{y}<br>value: %{z}<extra></extra>',
+            x: Array.from({ length: 75 }, (_, i) => i + 1),
+            y: Array.from({ length: 75 }, (_, i) => i + 1)
+        }]
     }));
 
     const layout = {
@@ -32,7 +48,7 @@ Promise.all(urls.map(fetchData)).then(dataMatrices => {
             steps: frames.map((frame, index) => ({
                 method: 'animate',
                 args: [[frame.name], { mode: "immediate", frame: { duration: 500, redraw: true }, transition: { duration: 0 } }],
-                label: `Matrix ${index + 1}`
+                label: matrixLabels[index]
             })),
             transition: { duration: 0 },
             x: 0,
