@@ -1,164 +1,175 @@
-var url1 = 'https://gist.githubusercontent.com/ErronLLP/4ea0adc47fac5e49bc48275deba6c718/raw/71fc63b85660d46f3c8b9c0d271fae803c55756e/mds_T1_600';
-var url2 = 'https://gist.githubusercontent.com/ErronLLP/7da85c9c6060b0ba6fa83d146ec70339/raw/3f91f6e77e62be56ee734f1a56eed4a3a7aaec93/mds_A1_600'; // Replace with your second dataset URL
+// URLs for the CSV files
+const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_A1_600.csv';
+const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_T1_600.csv';
 
-function plotData(url) {
-    d3.csv(url, function(err, rows) {
-        function unpack(rows, key) {
-            return rows.map(function(row) { return row[key]; });
-        }
-
-        var valence = unpack(rows, 'valence').map(Number); // Ensure valence is numeric
-        var arousal = unpack(rows, 'arousal').map(Number); // Ensure arousal is numeric
-        var videoName = unpack(rows, 'videoName'); // Extract video names
-
-        var hovertextValence = videoName.map((name, i) => `Video: ${name}<br>Valence: ${valence[i]}`);
-        var hovertextArousal = videoName.map((name, i) => `Video: ${name}<br>Arousal: ${arousal[i]}`);
-
-        // Determine the min and max values for both variables to set a consistent color scale range
-        var minValue = 0;
-        var maxValue = 10;
-
-        var data = [{
-            x: unpack(rows, 'MDS1'),
-            y: unpack(rows, 'MDS2'),
-            z: unpack(rows, 'MDS3'),
-            mode: 'markers',
-            type: 'scatter3d',
-            marker: {
-                color: valence,
-                colorscale: [
-                    [0, '#0571b0'],
-                    [0.25, '#92c5de'],
-                    [0.5, '#f7f7f7'],
-                    [0.75, '#f4a582'],
-                    [1, '#ca0020']
-                ],
-                cmin: minValue, // Set minimum value
-                cmax: maxValue, // Set maximum value
-                size: 5,
-                symbol: 'circle',
-                colorbar: {
-                    title: 'Valence',
-                    titleside: 'right',
-                    x: 1,
-                    xpad: 20
-                }
-            },
-            customdata: videoName, // Ensure 'videoName' matches the CSV column name for videos
-            hovertext: hovertextValence,
-            hoverinfo: 'text'
-        }];
-
-        var layout = {
-            autosize: true,
-            height: 500, // Reduced height
-            width: 500, // Reduced width
-            scene: {
-                aspectratio: {
-                    x: 1,
-                    y: 1,
-                    z: 1
-                },
-                camera: {
-                    center: {
-                        x: 0,
-                        y: 0,
-                        z: 0
-                    },
-                    eye: {
-                        x: 1.25,
-                        y: 1.25,
-                        z: 1.25
-                    },
-                    up: {
-                        x: 0,
-                        y: 0,
-                        z: 1
-                    }
-                },
-                xaxis: {
-                    type: 'linear',
-                    zeroline: false
-                },
-                yaxis: {
-                    type: 'linear',
-                    zeroline: false
-                },
-                zaxis: {
-                    type: 'linear',
-                    zeroline: false
-                }
-            },
-            hovermode: 'closest', // Ensure hovermode is set to 'closest'
-            title: '3D Point Clustering',
-            updatemenus: [{
-                buttons: [
-                    {
-                        args: [{
-                            'marker.color': [valence],
-                            'marker.colorscale': [
-                                [0, '#0571b0'],
-                                [0.25, '#92c5de'],
-                                [0.5, '#f7f7f7'],
-                                [0.75, '#f4a582'],
-                                [1, '#ca0020']
-                            ],
-                            'marker.cmin': minValue,
-                            'marker.cmax': maxValue,
-                            'marker.colorbar.title': 'Valence',
-                            'hovertext': [hovertextValence]
-                        }],
-                        label: 'Valence',
-                        method: 'restyle'
-                    },
-                    {
-                        args: [{
-                            'marker.color': [arousal],
-                            'marker.colorscale': [
-                                [0, '#0571b0'],
-                                [0.25, '#92c5de'],
-                                [0.5, '#f7f7f7'],
-                                [0.75, '#f4a582'],
-                                [1, '#ca0020']
-                            ],
-                            'marker.cmin': minValue,
-                            'marker.cmax': maxValue,
-                            'marker.colorbar.title': 'Arousal',
-                            'hovertext': [hovertextArousal]
-                        }],
-                        label: 'Arousal',
-                        method: 'restyle'
-                    }
-                ],
-                direction: 'down',
-                showactive: true,
-                x: 0.17,
-                xanchor: 'left',
-                y: 1.1,
-                yanchor: 'top'
-            }]
-        };
-
-        Plotly.newPlot('myDiv2', data, layout);
+// Function to load CSV data
+function loadData(url) {
+    return new Promise((resolve, reject) => {
+        d3.csv(url, function(error, data) {
+            if (error) reject(error);
+            else resolve(data);
+        });
     });
 }
+// Load both CSV files
+Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
+    const data1 = datasets[0];
+    const data2 = datasets[1];
 
-// Initial plot
-plotData(url1);
+    // Extract the data points
+    const x1 = data1.map(d => +d.MDS1);
+    const y1 = data1.map(d => +d.MDS2);
+    const z1 = data1.map(d => +d.MDS3);
+    const valence1 = data1.map(d => +d.valence);
 
-// Add dropdown for dataset selection
-var datasetDropdown = document.createElement('select');
-datasetDropdown.id = 'datasetSelector';
-datasetDropdown.style.position = 'absolute';
-datasetDropdown.style.top = '10px';
-datasetDropdown.style.left = '10px';
-datasetDropdown.innerHTML = `
-    <option value="${url1}">Dataset 1</option>
-    <option value="${url2}">Dataset 2</option>
-`;
-document.body.appendChild(datasetDropdown);
+    const x2 = data2.map(d => +d.MDS1);
+    const y2 = data2.map(d => +d.MDS2);
+    const z2 = data2.map(d => +d.MDS3);
+    const valence2 = data2.map(d => +d.valence);
 
-// Event listener for dataset selection
-datasetDropdown.addEventListener('change', function() {
-    plotData(this.value);
+    // Calculate the combined axis ranges
+    const xAll = x1.concat(x2);
+    const yAll = y1.concat(y2);
+    const zAll = z1.concat(z2);
+
+    const xRange = [Math.min(...xAll), Math.max(...xAll)];
+    const yRange = [Math.min(...yAll), Math.max(...yAll)];
+    const zRange = [Math.min(...zAll), Math.max(...zAll)];
+
+    // Create the plotly trace for the first set of points
+    const trace1 = {
+        x: x1,
+        y: y1,
+        z: z1,
+        mode: 'markers',
+        type: 'scatter3d',
+        marker: {
+            size: 5,
+            color: valence1,
+            colorscale: [
+                [0, '#0571b0'],
+                [0.25, '#92c5de'],
+                [0.5, '#f7f7f7'],
+                [0.75, '#f4a582'],
+                [1, '#ca0020']
+            ],
+            cmin: 0,
+            cmax: 10,
+            colorbar: {
+                title: 'Valence',
+                titleside: 'right',
+                x: 1,
+                xpad: 20
+            }
+        },
+        name: 'Set 1'
+    };
+
+    // Create the plotly trace for the second set of points
+    const trace2 = {
+        x: x2,
+        y: y2,
+        z: z2,
+        mode: 'markers',
+        type: 'scatter3d',
+        marker: {
+            size: 5,
+            color: valence2,
+            colorscale: [
+                [0, '#0571b0'],
+                [0.25, '#92c5de'],
+                [0.5, '#f7f7f7'],
+                [0.75, '#f4a582'],
+                [1, '#ca0020']
+            ],
+            cmin: 0,
+            cmax: 10,
+            colorbar: {
+                title: 'Valence',
+                titleside: 'right',
+                x: 1,
+                xpad: 20
+            }
+        },
+        name: 'Set 2'
+    };
+
+    // Layout configuration
+    const layout = {
+        autosize: true,
+        height: 800,
+        width: 800,
+        scene: {
+            aspectratio: {
+                x: 1,
+                y: 1,
+                z: 1
+            },
+            camera: {
+                center: {
+                    x: 0,
+                    y: 0,
+                    z: 0
+                },
+                eye: {
+                    x: 1.25,
+                    y: 1.25,
+                    z: 1.25
+                },
+                up: {
+                    x: 0,
+                    y: 0,
+                    z: 1
+                }
+            },
+            xaxis: {
+                type: 'linear',
+                zeroline: false,
+                range: xRange
+            },
+            yaxis: {
+                type: 'linear',
+                zeroline: false,
+                range: yRange
+            },
+            zaxis: {
+                type: 'linear',
+                zeroline: false,
+                range: zRange
+            }
+        },
+        hovermode: 'closest',
+        title: '3D Point Clustering',
+        sliders: [{
+            pad: {t: 30},
+            x: 0.1,
+            len: 0.9,
+            currentvalue: {
+                xanchor: 'right',
+                prefix: 'Dataset: ',
+                font: {
+                    color: '#888',
+                    size: 20
+                }
+            },
+            steps: [{
+                label: 'Set 1',
+                method: 'restyle',
+                args: [
+                    {'x': [x1], 'y': [y1], 'z': [z1], 'valence': [valence1], 'marker.color': [valence1]}
+                ]
+            }, {
+                label: 'Set 2',
+                method: 'restyle',
+                args: [
+                    {'x': [x2], 'y': [y2], 'z': [z2],'valence': [valence2], 'marker.color': [valence2]}
+                ]
+            }]
+        }]
+    };
+
+    // Plot the initial trace
+    Plotly.newPlot('myDiv2', [trace1], layout);
+}).catch(error => {
+    console.error('Error loading the data:', error);
 });

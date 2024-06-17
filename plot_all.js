@@ -1,4 +1,4 @@
-d3.csv('https://gist.githubusercontent.com/ErronLLP/def795683e9c5e0143785becc8d56808/raw/27c8184fac84626e91b7817e34e2a930cbf3774a/mds.csv', function(err, rows) {
+d3.csv('https://raw.githubusercontent.com/ErronLLP/plotly/main/data/mds_all.csv', function(err, rows) {
     function unpack(rows, key) {
         return rows.map(function(row) { return row[key]; });
     }
