@@ -1,6 +1,8 @@
 // URLs for the CSV files
-const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_A1_600.csv';
-const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_T1_600.csv';
+//const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_A1_600.csv';
+//const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_T1_600.csv';
+// Lipeng: Identifier 'url1' has already been declared (at plot_T_A_600_comparison_arousal.js:1:1)
+
 
 // Function to load CSV data
 function loadData(url) {
@@ -11,6 +13,7 @@ function loadData(url) {
         });
     });
 }
+
 // Load both CSV files
 Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
     const data1 = datasets[0];
@@ -20,12 +23,14 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
     const x1 = data1.map(d => +d.MDS1);
     const y1 = data1.map(d => +d.MDS2);
     const z1 = data1.map(d => +d.MDS3);
-    const valence1 = data1.map(d => +d.valence);
+    const arousal1 = data1.map(d => +d.arousal);
+    const videoName1 = data1.map(d => d.videoName);
 
     const x2 = data2.map(d => +d.MDS1);
     const y2 = data2.map(d => +d.MDS2);
     const z2 = data2.map(d => +d.MDS3);
-    const valence2 = data2.map(d => +d.valence);
+    const arousal2 = data2.map(d => +d.arousal);
+    const videoName2 = data2.map(d => d.videoName);
 
     // Calculate the combined axis ranges
     const xAll = x1.concat(x2);
@@ -44,8 +49,8 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
         mode: 'markers',
         type: 'scatter3d',
         marker: {
-            size: 5,
-            color: valence1,
+            size: 3,
+            color: arousal1,
             colorscale: [
                 [0, '#0571b0'],
                 [0.25, '#92c5de'],
@@ -56,13 +61,16 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
             cmin: 0,
             cmax: 10,
             colorbar: {
-                title: 'Valence',
+                title: 'Arousal',
                 titleside: 'right',
                 x: 1,
                 xpad: 20
             }
         },
-        name: 'Set 1'
+        customdata: videoName1,
+        hovertext: videoName1.map((name, i) => `Video: ${name}<br>Arousal: ${arousal1[i]}`),
+        hoverinfo: 'text',
+        name: 'Alexithymia'
     };
 
     // Create the plotly trace for the second set of points
@@ -74,7 +82,7 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
         type: 'scatter3d',
         marker: {
             size: 5,
-            color: valence2,
+            color: arousal2,
             colorscale: [
                 [0, '#0571b0'],
                 [0.25, '#92c5de'],
@@ -85,20 +93,23 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
             cmin: 0,
             cmax: 10,
             colorbar: {
-                title: 'Valence',
+                title: 'Arousal',
                 titleside: 'right',
                 x: 1,
                 xpad: 20
             }
         },
-        name: 'Set 2'
+        customdata: videoName2,
+        hovertext: videoName2.map((name, i) => `Video: ${name}<br>Arousal: ${arousal2[i]}`),
+        hoverinfo: 'text',
+        name: 'Typical'
     };
 
     // Layout configuration
     const layout = {
         autosize: true,
-        height: 800,
-        width: 800,
+        height: 500,
+        width: 500,
         scene: {
             aspectratio: {
                 x: 1,
@@ -139,7 +150,7 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
             }
         },
         hovermode: 'closest',
-        title: '3D Point Clustering',
+        title: 'MDS Point Clustering colored by AROUSAL<br>(bootstrap sample size = 600)',
         sliders: [{
             pad: {t: 30},
             x: 0.1,
@@ -153,23 +164,23 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
                 }
             },
             steps: [{
-                label: 'Set 1',
+                label: 'Alexithymia',
                 method: 'restyle',
                 args: [
-                    {'x': [x1], 'y': [y1], 'z': [z1], 'valence': [valence1], 'marker.color': [valence1]}
+                    {'x': [x1], 'y': [y1], 'z': [z1], 'marker.color': [arousal1], 'hovertext': [videoName1.map((name, i) => `Video: ${name}<br>Arousal: ${arousal1[i]}`)]}
                 ]
             }, {
-                label: 'Set 2',
+                label: 'Typical',
                 method: 'restyle',
                 args: [
-                    {'x': [x2], 'y': [y2], 'z': [z2],'valence': [valence2], 'marker.color': [valence2]}
+                    {'x': [x2], 'y': [y2], 'z': [z2], 'marker.color': [arousal2], 'hovertext': [videoName2.map((name, i) => `Video: ${name}<br>Arousal: ${arousal2[i]}`)]}
                 ]
             }]
         }]
     };
 
     // Plot the initial trace
-    Plotly.newPlot('myDiv2', [trace1], layout);
+    Plotly.newPlot('myDiv3', [trace1], layout);
 }).catch(error => {
     console.error('Error loading the data:', error);
 });
