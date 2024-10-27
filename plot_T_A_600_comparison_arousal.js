@@ -1,6 +1,6 @@
 // URLs for the CSV files
-//const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_A1_600.csv';
-//const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_T1_600.csv';
+//const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_alexithymia_labels.csv';
+//const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_typical_labels.csv';
 // Lipeng: Identifier 'url1' has already been declared (at plot_T_A_600_comparison_arousal.js:1:1)
 
 
