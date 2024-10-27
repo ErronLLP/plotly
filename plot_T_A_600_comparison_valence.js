@@ -1,6 +1,6 @@
 // URLs for the CSV files
-const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_alexithymia_labels.csv';
-const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_typical_labels.csv';
+const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_position/mds_alexithymia_labels.csv';
+const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_position/mds_typical_labels.csv';
 
 // Function to load CSV data
 function loadData(url) {
@@ -147,7 +147,7 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
             }
         },
         hovermode: 'closest',
-        title: 'MDS Point Clustering colored by VALENCE<br>(bootstrap sample size = 600)',
+        title: 'MDS representation colored by VALENCE',
         sliders: [{
             pad: {t: 30},
             x: 0.1,
@@ -161,13 +161,13 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
                 }
             },
             steps: [{
-                label: 'Alexithymia',
+                label: 'Alexithymia (N = 248)',
                 method: 'restyle',
                 args: [
                     {'x': [x1], 'y': [y1], 'z': [z1], 'marker.color': [valence1], 'hovertext': [videoName1.map((name, i) => `Video: ${name}<br>Valence: ${valence1[i]}`)]}
                 ]
             }, {
-                label: 'Typical',
+                label: 'Typical (N = 257)',
                 method: 'restyle',
                 args: [
                     {'x': [x2], 'y': [y2], 'z': [z2], 'marker.color': [valence2], 'hovertext': [videoName2.map((name, i) => `Video: ${name}<br>Valence: ${valence2[i]}`)]}

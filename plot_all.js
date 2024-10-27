@@ -86,7 +86,7 @@ d3.csv('https://raw.githubusercontent.com/ErronLLP/plotly/main/data/mds_all.csv'
             }
         },
         hovermode: 'closest', // Ensure hovermode is set to 'closest'
-        title: '3D MDS Point Clustering (all observations = 599)',
+        title: '',
         updatemenus: [{
             buttons: [
                 {

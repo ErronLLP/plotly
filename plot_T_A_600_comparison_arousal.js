@@ -150,7 +150,7 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
             }
         },
         hovermode: 'closest',
-        title: 'MDS Point Clustering colored by AROUSAL<br>(bootstrap sample size = 600)',
+        title: 'MDS representation colored by AROUSAL',
         sliders: [{
             pad: {t: 30},
             x: 0.1,
@@ -164,13 +164,13 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
                 }
             },
             steps: [{
-                label: 'Alexithymia',
+                label: 'Alexithymia (N = 248)',
                 method: 'restyle',
                 args: [
                     {'x': [x1], 'y': [y1], 'z': [z1], 'marker.color': [arousal1], 'hovertext': [videoName1.map((name, i) => `Video: ${name}<br>Arousal: ${arousal1[i]}`)]}
                 ]
             }, {
-                label: 'Typical',
+                label: 'Typical (N = 257)',
                 method: 'restyle',
                 args: [
                     {'x': [x2], 'y': [y2], 'z': [z2], 'marker.color': [arousal2], 'hovertext': [videoName2.map((name, i) => `Video: ${name}<br>Arousal: ${arousal2[i]}`)]}
