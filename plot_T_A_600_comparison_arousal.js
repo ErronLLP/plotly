@@ -1,6 +1,6 @@
 // URLs for the CSV files
-//const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_alexithymia_labels.csv';
-//const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_typical_labels.csv';
+//const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_position/mds_alexithymia_labels.csv';
+//const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_position/mds_typical_labels.csv';
 
 
 
