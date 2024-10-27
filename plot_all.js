@@ -11,8 +11,8 @@ d3.csv('https://raw.githubusercontent.com/ErronLLP/plotly/main/data/mds_all.csv'
     var hovertextArousal = videoName.map((name, i) => `Video: ${name}<br>Arousal: ${arousal[i]}`);
 
     // Determine the min and max values for both variables to set a consistent color scale range
-    var minValue = 0;
-    var maxValue = 10;
+    var minValue = -5;
+    var maxValue = 5;
 
     var data = [{
         x: unpack(rows, 'MDS1'),

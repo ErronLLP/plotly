@@ -1,7 +1,7 @@
 // URLs for the CSV files
 //const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_alexithymia_labels.csv';
 //const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_typical_labels.csv';
-// Lipeng: Identifier 'url1' has already been declared (at plot_T_A_600_comparison_arousal.js:1:1)
+
 
 
 // Function to load CSV data
@@ -58,8 +58,8 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
                 [0.75, '#f4a582'],
                 [1, '#ca0020']
             ],
-            cmin: 0,
-            cmax: 10,
+            cmin: -5,
+            cmax: 5,
             colorbar: {
                 title: 'Arousal',
                 titleside: 'right',
@@ -90,8 +90,8 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
                 [0.75, '#f4a582'],
                 [1, '#ca0020']
             ],
-            cmin: 0,
-            cmax: 10,
+            cmin: -5,
+            cmax: 5,
             colorbar: {
                 title: 'Arousal',
                 titleside: 'right',

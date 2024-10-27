@@ -1,6 +1,6 @@
 // URLs for the CSV files
-const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_A1_600.csv';
-const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_T1_600.csv';
+const url1 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_alexithymia_labels.csv';
+const url2 = 'https://raw.githubusercontent.com/ErronLLP/plotly/main/data/3d_mds_bootsize/mds_typical_labels.csv';
 
 // Function to load CSV data
 function loadData(url) {
@@ -55,8 +55,8 @@ Promise.all([loadData(url1), loadData(url2)]).then(datasets => {
                 [0.75, '#f4a582'],
                 [1, '#ca0020']
             ],
-            cmin: 0,
-            cmax: 10,
+            cmin: -5,
+            cmax: 5,
             colorbar: {
                 title: 'Valence',
                 titleside: 'right',
